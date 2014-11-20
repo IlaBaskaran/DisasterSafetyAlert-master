@@ -1,0 +1,43 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".PeopleActivity" >
+
+    <Button
+        android:id="@+id/AddContacts"
+        android:layout_height="50dp"
+        android:layout_width="match_parent"
+        android:layout_alignParentTop="true"
+        android:text="@string/ac" />
+    
+    <ListView
+        android:id="@+id/viewContacts"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/AddContacts"
+        android:dividerHeight="1dp"
+        android:listSelector="@drawable/list_selector">
+    </ListView>
+    
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal">
+		<Button
+		     android:id="@+id/Safe"
+		     android:layout_height="wrap_content"
+		     android:layout_width="0dip"
+		     android:layout_weight="1"
+		     android:text="@string/safe" />
+		<Button
+		     android:id="@+id/Help"
+		     android:layout_height="wrap_content"
+		     android:layout_width="0dip"
+		     android:layout_weight="1"
+		     android:text="@string/help" />
+    </LinearLayout>
+    
+
+</RelativeLayout>
