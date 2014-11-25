@@ -9,10 +9,6 @@
 *.class
 *.classpath
 
-# Generated files
-bin/
-gen/
-
 # Eclipse
 /.settings
 *.project

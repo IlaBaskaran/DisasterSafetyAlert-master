@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.livequake.disastersafetyalert"
+    android:versionCode="1"
+    android:versionName="1.0" >
+    
+     <meta-data
+	android:name="com.google.android.gms.version"
+    android:value="@integer/google_play_services_version" />
+
+    <uses-sdk
+        android:minSdkVersion="16"
+        android:targetSdkVersion="21" />
+
+    <uses-permission android:name="android.permission.SEND_SMS" />
+    <uses-permission android:name="android.permission.RECEIVE_SMS" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <!-- REQUIRED PERMISSIONS (for Urban Airship GCM) -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+
+    <!-- GCM requires a Google account. -->
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <!-- Keeps the processor from sleeping when a message is received. -->
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <!-- This app has permission to register with GCM and receive message -->
+    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
+    
+    <uses-permission android:name="android.permission.USE_CREDENTIALS" />
+    
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+
+    <permission
+        android:name="com.livequake.disastersafetyalert.permission.C2D_MESSAGE"
+        android:protectionLevel="signature" />
+
+    <uses-permission android:name="com.livequake.disastersafetyalert.permission.C2D_MESSAGE" />
+
+    <application
+        android:name="com.livequake.disastersafetyalert.DisasterSafetyAlert"
+        android:allowBackup="true"
+        android:icon="@drawable/lighthouse"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme" >
+
+        <!-- Main PAGE -->
+        <activity
+            android:name="com.livequake.disastersafetyalert.MainFragmentActivity"
+            android:label="@string/app_name"
+            android:launchMode="singleTask" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <!-- PEOPLE PAGE -->
+        <activity
+            android:name="com.livequake.disastersafetyalert.PeopleActivity"
+            android:label="@string/title_activity_people" >
+        </activity>
+
+        <!-- PLACE PAGE -->
+        <activity
+            android:name="com.livequake.disastersafetyalert.DisasterActivity"
+            android:label="@string/title_activity_places" >
+        </activity>
+
+        <!-- NOTHING..... -->
+        <activity
+            android:name="com.livequake.disastersafetyalert.WatchAreaActivity"
+            android:label="@string/title_activity_watch_area" >
+        </activity>
+        <activity android:name="com.urbanairship.push.sample.PushPreferencesActivity" />
+        <activity android:name="com.urbanairship.push.sample.LocationActivity" />
+
+        <receiver android:name="com.livequake.disastersafetyalert.SMSReceiver" >
+            <intent-filter>
+                <action android:name="android.provider.Telephony.SMS_RECEIVED" />
+            </intent-filter>
+        </receiver>
+
+        <!-- REQUIRED for Urban Airship GCM -->
+        <receiver android:name="com.urbanairship.CoreReceiver" />
+        <receiver
+            android:name="com.urbanairship.push.GCMPushReceiver"
+            android:permission="com.google.android.c2dm.permission.SEND" >
+            <intent-filter>
+                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+                <action android:name="com.google.android.c2dm.intent.REGISTRATION" />
+
+                <category android:name="com.livequake.disastersafetyalert" />
+            </intent-filter>
+            <!-- REQUIRED for detecting when the application is upgraded so it can request a new GCM ID -->
+            <intent-filter>
+                <action android:name="android.intent.action.PACKAGE_REPLACED" />
+
+                <data android:scheme="package" />
+            </intent-filter>
+        </receiver>
+
+        <service
+            android:name="com.urbanairship.push.PushService"
+            android:label="Push Notification Service" />
+        <service
+            android:name="com.urbanairship.analytics.EventService"
+            android:label="Event Service" />
+        <!-- This is required for persisting preferences related to push and location -->
+        <provider
+            android:name="com.urbanairship.UrbanAirshipProvider"
+            android:authorities="com.livequake.disastersafetyalert.urbanairship.provider"
+            android:exported="false"
+            android:multiprocess="true" />
+        <!-- REQUIRED for Rich Push -->
+        <service android:name="com.urbanairship.richpush.RichPushUpdateService" />
+        <service
+            android:name="com.urbanairship.location.LocationService"
+            android:label="Segments Service" />
+        <!-- OPTIONAL, if you want to receive push, push opened and registration completed intents -->
+        <receiver android:name="com.livequake.disastersafetyalert.IntentReceiver" />
+
+        <service android:name="com.livequake.disastersafetyalert.UpdateDBService" />
+
+        <activity
+            android:name="com.livequake.disastersafetyalert.RespondActivity"
+            android:label="@string/title_activity_respond"
+            android:parentActivityName="com.livequake.disastersafetyalert.MainFragmentActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.livequake.disastersafetyalert.MainFragmentActivity" />
+        </activity>
+        <activity
+            android:name="com.livequake.disastersafetyalert.PlacesActivity"
+            android:label="@string/title_activity_places" >
+        </activity>
+    </application>
+
+</manifest>
